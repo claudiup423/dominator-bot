@@ -1,0 +1,16 @@
+# Core
+numpy>=1.24
+pyyaml>=6.0
+torch>=2.0
+tqdm>=4.60
+pytest>=7.0
+
+# RLBot v5 (for tournament)
+rlbot>=5.0.0b
+
+# RL Training (PPO via RocketSim)
+rlgym[rl-sim]
+rlgym[rl-rlviser]
+
+# rlgym-ppo installed via:
+# pip install git+https://github.com/AechPro/rlgym-ppo

@@ -1,0 +1,14 @@
+[settings]
+agent_id = "bossdeboss/dominance-bot"
+name = "DominanceBot"
+loadout_file = "loadout.toml"
+run_command = ".\\venv\\Scripts\\python src\\bot.py"
+run_command_linux = "./venv/bin/python src/bot.py"
+
+[details]
+description = "Hierarchical ML + deterministic bot with hard safety overrides. Never gives up a free goal."
+fun_fact = "Has 7 hard-coded safety rules that even ML cannot override"
+source_link = ""
+developer = "BossDeBoss"
+language = "python"
+tags = ["teamplay"]

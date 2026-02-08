@@ -1,0 +1,117 @@
+# DominanceBot Configuration
+# All tunable parameters in one place.
+
+bot:
+  name: "DominanceBot"
+  version: "0.1.0"
+  mode: "expert"  # "expert" | "ml" | "safe"
+  tick_budget_ms: 2.0  # Max inference time per tick
+
+# Intent definitions
+intents:
+  - DEFEND_SHADOW
+  - DEFEND_CLEAR
+  - CHALLENGE
+  - ATTACK_SHOOT
+  - ATTACK_POSSESSION
+  - ROTATE_BACK
+  - GRAB_BOOST_SAFE
+
+# Safety supervisor thresholds
+safety:
+  shot_quality_threshold: 0.35
+  last_man_challenge_ball_speed_min: 1500.0  # Only challenge as last man if ball coming fast at goal
+  last_man_boost_detour_max_distance: 1500.0
+  last_man_time_margin: 1.5  # seconds we must be able to return before threat
+  indecision_window_ticks: 15
+  indecision_max_switches: 3
+  indecision_cooldown_ticks: 30
+  open_net_distance_threshold: 3000.0  # If opponent is this close to open net, go conservative
+  back_post_offset_y: 400.0  # Offset from goal center for back-post positioning
+
+# Deterministic expert tuning
+expert:
+  aggression: 0.5  # 0=passive, 1=aggressive
+  challenge_distance: 2000.0
+  shadow_offset: 800.0
+  clear_power_threshold: 0.4  # Min power for a clear to be accepted
+  possession_touch_offset: 200.0
+  safe_boost_threshold: 30  # Below this, consider grabbing boost
+
+# Control parameters
+control:
+  steering:
+    proportional_gain: 5.0
+    derivative_gain: 0.8
+    max_steer: 1.0
+  driving:
+    boost_threshold_speed: 1400.0  # Boost only below this speed (supersonic ~2300)
+    powerslide_angle_threshold: 1.8  # Radians — use handbrake above this
+    target_arrival_slowdown_dist: 500.0
+  aerial:
+    enabled: false  # Disabled in Phase 1 curriculum
+    min_height: 300.0
+    max_height: 1500.0
+
+# Training
+training:
+  bc:
+    batch_size: 256
+    learning_rate: 0.001
+    epochs: 50
+    dataset_episodes: 5000
+    validation_split: 0.1
+  ppo:
+    learning_rate: 0.0003
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    entropy_coef: 0.01
+    value_coef: 0.5
+    n_steps: 4096
+    batch_size: 512
+    n_epochs: 4
+    total_timesteps: 50_000_000
+  league:
+    pool_size: 10
+    rounds: 100
+    matches_per_round: 20
+    promotion_threshold_winrate: 0.55
+
+# Evaluation
+eval:
+  matches_per_opponent: 20
+  regression_gates:
+    max_goals_conceded_increase: 0.1
+    max_open_net_conceded_increase: 0.05
+    max_winrate_decrease: 0.03
+    max_whiff_rate: 0.15
+
+# Reward shaping (for PPO)
+rewards:
+  goal_scored: 10.0
+  goal_conceded: -15.0
+  save: 3.0
+  shot_on_goal: 1.5
+  clear: 1.0
+  possession_quality: 0.1  # Per-tick small reward
+  overcommit_penalty: -2.0
+  open_net_conceded: -20.0
+  boost_waste_penalty: -0.05  # Per boost unit wasted
+  good_rotation: 0.2
+
+# Physics constants
+physics:
+  gravity: 650.0
+  ball_radius: 92.75
+  car_length: 118.0
+  car_width: 84.0
+  car_height: 36.0
+  max_car_speed: 2300.0
+  boost_accel: 991.667
+  max_boost: 100.0
+  field_length: 10240.0  # Full length (each half = 5120)
+  field_width: 8192.0    # Full width (each half = 4096)
+  goal_width: 1786.0
+  goal_height: 642.0
+  goal_depth: 880.0
