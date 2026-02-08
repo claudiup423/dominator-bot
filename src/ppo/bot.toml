@@ -2,8 +2,8 @@
 agent_id = "bossdeboss/dominance-ppo"
 name = "DominancePPO"
 loadout_file = "loadout.toml"
-run_command = "..\\..\\venv\\Scripts\\python src\\ppo\\bot.py"
-run_command_linux = "../../venv/bin/python src/ppo/bot.py"
+run_command = "..\\..\\venv\\Scripts\\python bot.py"
+run_command_linux = "../../venv/bin/python bot.py"
 
 [details]
 description = "PPO-trained neural network bot"

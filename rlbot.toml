@@ -1,0 +1,27 @@
+# rlbot.toml — Match configuration
+# Launch with: python run.py
+
+[rlbot]
+launcher = "epic"  # or "steam"
+auto_start_bots = true
+
+[match]
+game_mode = "Soccer"
+game_map = "DFH_Stadium_P"
+skip_replays = true
+instant_start = true
+enable_rendering = true
+
+# Blue team — our PPO bot
+[[cars]]
+toml = "./src/ppo_bot.toml"
+team = 0
+name = "DominancePPO"
+
+# Orange team — Psyonix All-Star bot
+[[cars]]
+# Use Psyonix bot as opponent
+type = "psyonix"
+team = 1
+skill = 1.0
+name = "AllStar Bot"

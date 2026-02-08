@@ -1,0 +1,14 @@
+[settings]
+agent_id = "bossdeboss/dominance-ppo"
+name = "DominancePPO"
+loadout_file = "loadout.toml"
+run_command = ".\\venv\\Scripts\\python src\\ppo_bot.py"
+run_command_linux = "./venv/bin/python src/ppo_bot.py"
+
+[details]
+description = "PPO-trained neural network bot. Learns from self-play."
+fun_fact = "Trained via reinforcement learning using RocketSim"
+source_link = ""
+developer = "BossDeBoss"
+language = "python"
+tags = ["ml", "teamplay"]
